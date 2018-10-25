@@ -4,19 +4,19 @@
 Feature: A description
 
   Scenario: A scenario
-    Given url 'https://jsonplaceholder.typicode.com/users'
+    Given url 'http://localhost:3000/'
     When method get
     Then status 200
-* match response[*].username contains any 'Bret', 'Antonette', 'Samantha'
-#* print response contains { "userId": '1'}
- #* match response [*].userId == [23, 42]
- # * def isValidTime = read('time-validator.js')
 
-   # * match response == [{"userId": '#number', "id": '#number', "title": '#string',  "completed": '#boolean'}]
-
-  Scenario: A scenario2
-    Given url 'https://jsonplaceholder.typicode.com/posts'
-    * request {title: 'n53sv', body: 'n53sv', userId: 666 }
+  Scenario: second scenario
+    Given url 'http://localhost:3000/posts'
+    And request  { "id": 2, "title": "gabo", "author": "gabo" }
     When method post
-    * status 201
-    * match response contains {id:101}
+    Then status 201
+
+  Scenario: third scenario
+    Given url 'http://localhost:3000/posts'
+    When method get
+    And status 200
+    Then match response contains [{"id":'#number', "author":'#string', "title":'#string'}]
+
